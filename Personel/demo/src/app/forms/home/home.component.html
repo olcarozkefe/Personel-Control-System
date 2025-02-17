@@ -1,0 +1,114 @@
+<link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css">
+<div>
+  <header class="header">
+    <h1 style="color: azure">- Personel Control System -</h1>
+  </header>
+</div>
+
+<p-confirmDialog></p-confirmDialog>
+
+<div>
+  <p-table [value]="personelList" selectionMode="single" dataKey="id" [(selection)]="personel">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Adı</th>
+        <th>Soyadı</th>
+        <th>Tc</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-personel>
+      <tr (click)="selectPersonel(personel)">
+        <td>{{ personel.name }}</td>
+        <td>{{ personel.surname }}</td>
+        <td>{{ personel.tc }}</td>
+        <div>
+          <p-button label="Sil" severity="danger" (click)="personelSil(personel); $event.stopPropagation()">
+          </p-button>
+        </div>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+
+
+<p-button label="Personel Ekle" size="small" severity="success" (click)="showAddForm()"></p-button>
+<p-button label="Panel Kapat" size="small" severity="primary" (click)="togglePanel()"></p-button>
+
+
+<div class="yeniP"*ngIf="showForm">
+  <h3 class="p-3" style="color: azure">Yeni Personel Ekle</h3>
+  <label for="name"></label>
+  <input id="ad" type="text" class="input-center" [(ngModel)]="personel.name" placeholder="Adı">
+
+
+  <label for="surname" style="margin-left: 10px;"></label>
+  <input id="soyad" type="text" class="input-center" [(ngModel)]="personel.surname" placeholder="Soyadı">
+
+  <label for="tc" style="margin-left: 10px;"></label>
+  <input id="tckimlik" type="text" class="input-center" [(ngModel)]="personel.tc" placeholder="Tc">
+
+
+  <p-button label="Ekle" severity="primary" (click)="addPersonel()" [ngStyle]="{'margin-left': '10px'}"></p-button>
+
+</div>
+
+<div class="dialog">
+  <p-dialog header="Personel Details" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <span class="p-text-secondary block mb-5 ">Update your information.</span>
+    <div class="grid">
+
+    <div class="grid align-items-center gap-4 mb-4">
+      <div class="flex pl-6 pr-8 ic-dialog">
+        <label for="name" class="col-6 font-semibold">Name : </label>
+        <input pInputText id="name" class="col-6 input w-full" autocomplete="off" [(ngModel)]="personel.name"/>
+      </div>
+    </div>
+
+
+    <div class="grid flex align-items-center gap-4 mb-4">
+      <div class="flex pl-6 pr-8 ic-dialog">
+        <label for="surname" class="font-semibold col-6">Surname : </label>
+        <input pInputText id="surname" class="input col-6 w-full" autocomplete="off" [(ngModel)]="personel.surname"/>
+      </div>
+    </div>
+
+    <div class="grid flex align-items-center gap-4 mb-4">
+      <div class="flex pl-6 pr-8 ic-dialog">
+        <label for="tc" class="font-semibold col-6">T.C : </label>
+        <input pInputText id="tc" class="input col-6 w-full" autocomplete="off" [(ngModel)]="personel.tc"/>
+      </div>
+    </div>
+
+    <div class="grid flex align-items-center gap-4 mb-4">
+      <div class="flex pl-6 pr-8 ic-dialog">
+        <label for="email" class="font-semibold col-6">E-mail : </label>
+        <input pInputText id="email" class="input col-6 w-full" autocomplete="off" [(ngModel)]="personel.email"/>
+      </div>
+    </div>
+
+    <div class="grid flex align-items-center gap-4 mb-4">
+      <div class="flex pl-6 pr-8 ic-dialog">
+        <label for="phone" class="font-semibold col-6">Phone : </label>
+        <input pInputText id="phone" class="input col-6 w-full" autocomplete="off" [(ngModel)]="personel.phone" />
+      </div>
+    </div>
+
+    <div class="grid flex align-items-center gap-4 mb-4">
+      <div class="flex pl-6 pr-8 ic-dialog">
+        <label for="adress" class="font-semibold col-6">Address : </label>
+        <input pInputText id="adress" class="input col-6 w-full" autocomplete="off" [(ngModel)]="personel.address" />
+      </div>
+    </div>
+    </div>
+    <div class="flex justify-end gap-2 justify-content-center">
+      <div class="save-button">
+        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+        <p-button label="Save" (click)="visible = false" />
+      </div>
+    </div>
+  </p-dialog>
+</div>
+
+
+
